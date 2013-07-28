@@ -124,11 +124,12 @@ def tick(client_id):
     print "--- RISK CALC ---"
     pp.pprint(risk_scores)
     for move, score in risk_scores.iteritems():
-        scores[move] += score
+        scores[move] -= score
 
     # factor in reward
     reward_scores = calc_reward(board)
     print "--- REWARD CALC ---"
+    pp.pprint(reward_scores)
     for move, score in reward_scores.iteritems():
         scores[move] += score
 
