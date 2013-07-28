@@ -30,25 +30,6 @@ def calc_risk(board, last_move):
         risk['w'] = 100
 
     # Don't hit self, but do it as a last resort
-<<<<<<< HEAD
-    last_move = board.get_head().get_last_move()
-
-    if last_move == 'e':
-        risk['w'] = 99
-    elif last_move == 'w':
-        risk['e'] = 99
-    elif last_move == 'n':
-        risk['s'] = 99
-    elif last_move == 's':
-        risk['n'] = 99
-
-    # Calculate risk with proximity to walls
-
-    # Calculate risk with proxomity to snake bodies
-
-    # Calculate risk with proximity to snake heads
-
-=======
     if len(last_move) > 0:
         if last_move == 'e':
             risk['w'] = 99
@@ -59,7 +40,6 @@ def calc_risk(board, last_move):
         elif last_move == 's':
             risk['n'] = 99
 
->>>>>>> ba0aa8d5bb5b11412622f3c5ea2aee28b6e7ca9a
     # Calculate risk of going in the direction of clusters of snakes
 
     # Calculate risk of going in the direction of long snakes
