@@ -102,14 +102,28 @@ def tick(client_id):
     print "Allowed Moves:", allowed_moves
 
     # Calc Risk
-    risk_scores = calc_risk(board)
-    reward_scores = calc_reward(board)
+    scores = {'n': 0, 's': 0, 'e': 0, 'w': 0}
 
-    # Calc Reward
-    calc_reward(board)
+    # factor in risk
+    risk_scores = calc_risk(board)
+    for move, score in risk_scores.iteritems():
+        scores[move] += score
+
+    # factor in reward
+    #reward_scores = calc_reward(board)
+    #for move, score in reward_scores.iteritems():
+    #    scores[move] += score
+
+    # Decide on a move
+    next_move = None
+    next_move_score = -1
+    for m in allowed_moves:
+        if scores[m] > next_move_score:
+            next_move = m
+            next_move_score = scores[m]
 
     return _respond({
-        'move': 'n',
+        'move': next_move,
         'message': 'Turn %d!' % (request.get('turn_num'))
     })
 
