@@ -14,7 +14,7 @@ class Board():
 
         for y in range(self.get_height()):
             for x in range(self.get_width()):
-                square = self.board[y][x]
+                square = self.board_state[y][x]
                 if len(square) > 0:
                     if square[0].type == 'snake_head' and square[0].id == client_id:
                         self.player_coords = (x, y)
