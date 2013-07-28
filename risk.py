@@ -1,5 +1,7 @@
 import math
 
+from board import Board
+
 def calc_risk(board, last_move):
     risk = {'n': 0,
             'e': 0,
@@ -44,7 +46,7 @@ def calc_risk(board, last_move):
 
     # Calculate proximity based risk
     _proximity_risk(board, risk, our_x, our_y)
-    
+
     # Calculate risk of going in the direction of clusters of snakes
 
     # Calculate risk of going in the direction of long snakes
@@ -79,7 +81,7 @@ def _proximity_risk(board, risk, our_x, our_y):
         for i in range(d):
             xd -= 1
             yd += 1
-            
+
             if abs(xd) > abs(yd):
                 _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'e', risk_factor)
             elif abs(xd) < abs(yd):
@@ -87,12 +89,12 @@ def _proximity_risk(board, risk, our_x, our_y):
             elif abs(xd) == abs(yd):
                 _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'e', risk_factor / 2.0)
                 _calc_prox_risk(board, cur_x, cur_y, prox_risk, 's', risk_factor / 2.0)
-        
+
         # Circle west
         for i in range(d):
             xd -= 1
             yd -= 1
-            
+
             if abs(xd) > abs(yd):
                 _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'w', risk_factor)
             elif abs(xd) < abs(yd):
@@ -100,12 +102,12 @@ def _proximity_risk(board, risk, our_x, our_y):
             elif abs(xd) == abs(yd):
                 _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'w', risk_factor / 2.0)
                 _calc_prox_risk(board, cur_x, cur_y, prox_risk, 's', risk_factor / 2.0)
-            
+
         # Circle north
         for i in range(d):
             xd += 1
             yd -= 1
-            
+
             if abs(xd) > abs(yd):
                 _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'w', risk_factor)
             elif abs(xd) < abs(yd):
@@ -118,7 +120,7 @@ def _proximity_risk(board, risk, our_x, our_y):
         for i in range(d):
             xd += 1
             yd += 1
-            
+
             if abs(xd) > abs(yd):
                 _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'e', risk_factor)
             elif abs(xd) < abs(yd):
@@ -138,9 +140,9 @@ def _calc_prox_risk(board, cur_x, cur_y, prox_risk, dir, risk_factor):
         _max_risk(prox_risk, dir, prox_risk[dir] + ceil(risk_factor * 1))
 
     # Calculate risk with proximity to snake bodies, including own snake body
-    if board.get_state(cur_x, cur_y) == STATE_BODY:
+    if board.get_state(cur_x, cur_y) == Board.STATE_BODY:
         _max_risk(prox_risk, dir, prox_risk[dir] + ceil(risk_factor * 2))
 
     # Calculate risk with proximity to snake heads
-    if board.get_state(cur_x, cur_y) == STATE_HEAD:
+    if board.get_state(cur_x, cur_y) == Board.STATE_HEAD:
         _max_risk(prox_risk, dir, prox_risk[dir] + ceil(risk_factor * 3))
