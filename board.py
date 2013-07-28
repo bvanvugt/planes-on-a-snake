@@ -12,17 +12,14 @@ class Board():
         self.client_id = client_id
         self.player_coords = None
 
-        print "Board Init:", client_id
-
         for y in range(self.get_height()):
             for x in range(self.get_width()):
                 square = self.board_state[y][x]
                 if len(square) > 0:
                     if square[0]['type'] == 'snake_head':
-                        print "HEAD:", square[0]['id']
-
                         if square[0]['id'] == self.client_id:
                             self.player_coords = (x, y)
+                            print "PLAYER COORDS:", self.player_coords
                             return
 
         raise Exception('Board init fucked up')
@@ -55,13 +52,19 @@ class Board():
         return self.STATE_EMPTY
 
     def is_empty(self, x, y):
-        return (not self.is_wall(x, y)) and self.get_state(x, y) == self.STATE_EMPTY
+        if self.is_wall(x, y):
+            return False
+        return self.get_state(x, y) == self.STATE_EMPTY
 
     def is_food(self, x, y):
-        return (not self.is_wall(x, y)) and self.get_state(x, y) == self.STATE_FOOD
+        if self.is_wall(x, y):
+            return False
+        return self.get_state(x, y) == self.STATE_FOOD
 
     def is_snake(self, x, y):
-        return (not self.is_wall(x, y)) and (self.get_state(x, y) == self.STATE_BODY) or (self.get_state(x, y) == self.STATE_HEAD)
+        if self.is_wall(x, y):
+            return False
+        return (self.get_state(x, y) == self.STATE_BODY) or (self.get_state(x, y) == self.STATE_HEAD)
 
     def is_wall(self, x, y):
         return x < 0 or x >= self.get_width() or y < 0 or y >= self.get_height()
