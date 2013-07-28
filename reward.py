@@ -19,6 +19,10 @@ def calc_reward(board):
 			if board.is_food(x,y):
 				food.append((x,y))
 
+
+	print 'Food: %s' % food
+
+
 	# ITERATE OVER FOOD ON BOARD
 	for x, y in food:
 		regions[board.get_direction_to_point(x,y)] += 1
@@ -30,8 +34,8 @@ def calc_reward(board):
 
 	#print regions_ordered
 	#print distances_orderd
-
-	for index, direction in enumerate(regions_ordered, start=1):
-		reward[direction] = index*25
+	if food:
+		for index, direction in enumerate(regions_ordered, start=1):
+			reward[direction] = index*25
 
 	return reward
