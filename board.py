@@ -12,13 +12,18 @@ class Board():
         self.client_id = client_id
         self.player_coords = None
 
+        print "Board Init:", client_id
+
         for y in range(self.get_height()):
             for x in range(self.get_width()):
                 square = self.board_state[y][x]
                 if len(square) > 0:
-                    if square[0]['type'] == 'snake_head' and square[0]['id'] == self.client_id:
-                        self.player_coords = (x, y)
-                        return
+                    if square[0]['type'] == 'snake_head':
+                        print "HEAD:", square[0]['id']
+
+                        if square[0]['id'] == self.client_id:
+                            self.player_coords = (x, y)
+                            return
 
         raise Exception('Board init fucked up')
 
@@ -57,9 +62,9 @@ class Board():
 
     def is_snake(self, x, y):
         return (self.get_state(x, y) == self.STATE_BODY) or (self.get_state(x, y) == self.STATE_HEAD)
-    
+
     def is_wall(self, x, y):
-        return x < 0 or x >= get_width() or y < 0 or y >= get_height()
+        return x < 0 or x >= self.get_width() or y < 0 or y >= self.get_height()
 
     def calc_distance(self, x1, y1, x2, y2):
         return int(math.fabs(x1 - x2)) + int(math.fabs(y1 - y2))
