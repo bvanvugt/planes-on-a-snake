@@ -37,7 +37,8 @@ def register():
 
     return _respond({
         'name': 'PlanesOnA Snake',
-        'head_img_url': "http://fc02.deviantart.net/fs70/f/2010/148/3/d/20x20_PNG_Icons_sword_by_JMcIvor.png"
+        'head_img_url': "http://bloatedcorpse.com/snakewithus/head-skull.gif",
+        'tail_img_url': "http://bloatedcorpse.com/snakewithus/tail-skull.gif"
     })
 
 
@@ -68,10 +69,13 @@ def tick(client_id):
     # print request.get('board')
     print "----------------"
 
-    board = Board(request.get('board'))
+    board = Board(request.get('board'), client_id)
 
     # Calc Risk
-    calc_risk(board)
+    risk_scores = calc_risk(board)
+    reward_scores = calc_reward(board)
+
+    # Allowed moves
 
     # Calc Reward
     calc_reward(board)
