@@ -7,7 +7,7 @@ import json
 import os
 import random
 
-# HELLO
+from board import Board
 
 
 def _respond(response_json):
@@ -66,23 +66,7 @@ def tick(client_id):
     # print request.get('board')
     print "----------------"
 
-    # Find the last move we made
-    for snake in request.get('snakes'):
-        if snake['id'] == client_id:
-            my_snake = snake
-            continue
-
-    random_map = {
-        'n': [random.choice(['n', 'e', 'w'])],
-        's': [random.choice(['s', 'e', 'w'])],
-        'w': [random.choice(['n', 's', 'w'])],
-        'e': [random.choice(['n', 's', 'e'])],
-        '': [random.choice(['n', 's', 'e', 'w'])]
-    }
-
-    # Map
-    moves = random_map[my_snake['last_move']]
-    my_move = moves[request.get('turn_num') % len(moves)]
+    board = Board(request.get('board'))
 
     return _respond({
         'move': my_move,
