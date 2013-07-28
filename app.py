@@ -72,9 +72,9 @@ def tick(client_id):
     board = Board(request.get('board'), client_id)
 
     my_snake = None
-        for snake in request.get('snakes'):
-            if snake['id'] == client_id:
-                my_snake = snake
+    for snake in request.get('snakes'):
+        if snake['id'] == client_id:
+            my_snake = snake
     last_move = my_snake['last_move']
 
     # Allowed moves
