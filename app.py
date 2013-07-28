@@ -12,13 +12,18 @@ def _respond(response_json):
     return json.dumps(response_json)
 
 
-@bottle.post('/<ai_mode>/register')
-def register(ai_mode):
+@bottle.get('/')
+def home():
+    return "<h1>PLANES ON THE MUTHAFUCKING SNAKES</h1>"
+
+
+@bottle.post('/register')
+def register():
     request = bottle.request.json
     if not request:
         return "No request data sent"
 
-    print "--- REGISTER ---", str(ai_mode)
+    print "--- REGISTER ---"
     print "Game ID:", request.get('game_id')
     print "Client ID:", request.get('client_id')
     print "Board:"
@@ -32,13 +37,13 @@ def register(ai_mode):
     })
 
 
-@bottle.post('/<ai_mode>/start')
-def start(ai_mode):
+@bottle.post('/start')
+def start():
     request = bottle.request.json
     if not request:
         return "No request data sent"
 
-    print "--- START ---", str(ai_mode)
+    print "--- START ---"
     print "Game ID:", request.get('game_id')
     print "Num Players:", request.get('num_players')
     print "-------------"
@@ -46,13 +51,13 @@ def start(ai_mode):
     return _respond({})
 
 
-@bottle.post('/<ai_mode>/tick/<client_id>')
-def tick(ai_mode, client_id):
+@bottle.post('/tick/<client_id>')
+def tick(client_id):
     request = bottle.request.json
     if not request:
         return "No request data sent"
 
-    print "--- TICK", request.get('turn_num'), '---', str(ai_mode)
+    print "--- TICK", request.get('turn_num'), '---'
     print "Game ID:", request.get('id')
     print "Turn Num:", request.get('turn_num')
     print "Snakes:", len(request.get('snakes'))
@@ -83,13 +88,13 @@ def tick(ai_mode, client_id):
     })
 
 
-@bottle.post('<ai_mode>/end')
-def end(ai_mode):
+@bottle.post('/end')
+def end():
     request = bottle.request.json
     if not request:
         return "No request data sent"
 
-    print "--- END ---", str(ai_mode)
+    print "--- END ---"
     print "Game ID:", request.get('game_id')
     print "-------------"
 
