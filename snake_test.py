@@ -23,7 +23,7 @@ class square(object):
 
 for y in range(height):
 	row = []
-	for y in range(width):
+	for x in range(width):
 		row.append([])
 
 	STATE.append(row)
@@ -37,4 +37,4 @@ for x, y in food:
 
 game = board.Board(STATE, '38024038-57cd-4e15-a1d9-663b5f3e85bf')
 
-print reward.reward(game)
+print reward.calc_reward(game)
