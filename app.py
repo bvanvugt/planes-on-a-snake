@@ -71,6 +71,12 @@ def tick(client_id):
 
     board = Board(request.get('board'), client_id)
 
+    my_snake = None
+        for snake in request.get('snakes'):
+            if snake['id'] == client_id:
+                my_snake = snake
+    last_move = my_snake['last_move']
+
     # Allowed moves
     (player_x, player_y) = board.get_head()
     allowed_moves = ['n', 's', 'e', 'w']
@@ -105,7 +111,7 @@ def tick(client_id):
     scores = {'n': 0, 's': 0, 'e': 0, 'w': 0}
 
     # factor in risk
-    risk_scores = calc_risk(board)
+    risk_scores = calc_risk(board, last_move)
     for move, score in risk_scores.iteritems():
         scores[move] += score
 

@@ -16,7 +16,7 @@ class Board():
             for x in range(self.get_width()):
                 square = self.board_state[y][x]
                 if len(square) > 0:
-                    if square[0].type == 'snake_head' and square[0].id == client_id:
+                    if square[0]['type'] == 'snake_head' and square[0]['id'] == self.client_id:
                         self.player_coords = (x, y)
                         return
 
@@ -40,17 +40,17 @@ class Board():
 
         if len(square) > 0:
             obj = square[0]
-            if obj.type == 'food':
+            if obj['type'] == 'food':
                 return self.STATE_FOOD
-            if obj.type == 'body':
+            if obj['type'] == 'body':
                 return self.STATE_BODY
-            if obj.type == 'head':
+            if obj['type'] == 'head':
                 return self.STATE_HEAD
 
-        return self.STATE_EMTPY
+        return self.STATE_EMPTY
 
     def is_empty(self, x, y):
-        return self.get_state(x, y) == self.STATE_EMTPY
+        return self.get_state(x, y) == self.STATE_EMPTY
 
     def is_food(self, x, y):
         return self.get_state(x, y) == self.STATE_FOOD
