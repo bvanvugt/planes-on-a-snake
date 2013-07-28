@@ -35,10 +35,15 @@ def register():
     print "  Height:", request.get('board').get('height')
     print "----------------"
 
+    snake_gifs = [
+        'skull', 'bug', 'drill', 'pacman', 'worm', 'goon'
+    ]
+    gif = random.choice(snake_gifs)
+
     return _respond({
         'name': 'PlanesOnA Snake',
-        'head_img_url': "http://bloatedcorpse.com/snakewithus/head-skull.gif",
-        'tail_img_url': "http://bloatedcorpse.com/snakewithus/tail-skull.gif"
+        'head_img_url': "http://bloatedcorpse.com/snakewithus/head-%s.gif" % gif,
+        'tail_img_url': "http://bloatedcorpse.com/snakewithus/tail-%s.gif" % gif
     })
 
 
