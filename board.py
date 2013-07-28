@@ -61,3 +61,17 @@ class Board():
     def calc_distance(self, x1, y1, x2, y2):
         return int(math.fabs(x1 - x2)) + int(math.fabs(y1 - y2))
 
+    def get_direction_to_point(self, x, y):
+        self_x, self_y = self.player_coords
+
+        d_x = int(math.fabs(self_x - x))
+        d_y = int(math.fabs(self_y - y))
+
+        if d_x > d_y:
+            if self_x > x:
+                return 'w'
+            return 'e'
+
+        if self_y > y:
+            return 's'
+        return 'n'
