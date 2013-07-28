@@ -8,8 +8,10 @@ import os
 import random
 
 from board import Board
-#from reward import calc_reward
+from reward import calc_reward
 from risk import calc_risk
+
+import pprint
 
 
 def _respond(response_json):
@@ -74,6 +76,8 @@ def tick(client_id):
     # print request.get('board')
     print "----------------"
 
+    pp = pprint.PrettyPrinter(indent=4)
+
     board = Board(request.get('board'), client_id)
 
     my_snake = None
@@ -117,13 +121,19 @@ def tick(client_id):
 
     # factor in risk
     risk_scores = calc_risk(board, last_move)
+    print "--- RISK CALC ---"
+    pp.pprint(risk_scores)
     for move, score in risk_scores.iteritems():
         scores[move] += score
 
     # factor in reward
-    #reward_scores = calc_reward(board)
-    #for move, score in reward_scores.iteritems():
-    #    scores[move] += score
+    reward_scores = calc_reward(board)
+    print "--- REWARD CALC ---"
+    for move, score in reward_scores.iteritems():
+        scores[move] += score
+
+    print "--- CALC'D SCORES ---"
+    pp.pprint(scores)
 
     # Decide on a move
     next_move = None
@@ -132,6 +142,8 @@ def tick(client_id):
         if scores[m] > next_move_score:
             next_move = m
             next_move_score = scores[m]
+
+    print "=====> NEXT MOVE:", next_move
 
     return _respond({
         'move': next_move,

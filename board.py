@@ -55,13 +55,13 @@ class Board():
         return self.STATE_EMPTY
 
     def is_empty(self, x, y):
-        return self.get_state(x, y) == self.STATE_EMPTY
+        return (not self.is_wall(x, y)) and self.get_state(x, y) == self.STATE_EMPTY
 
     def is_food(self, x, y):
-        return self.get_state(x, y) == self.STATE_FOOD
+        return (not self.is_wall(x, y)) and self.get_state(x, y) == self.STATE_FOOD
 
     def is_snake(self, x, y):
-        return (self.get_state(x, y) == self.STATE_BODY) or (self.get_state(x, y) == self.STATE_HEAD)
+        return (not self.is_wall(x, y)) and (self.get_state(x, y) == self.STATE_BODY) or (self.get_state(x, y) == self.STATE_HEAD)
 
     def is_wall(self, x, y):
         return x < 0 or x >= self.get_width() or y < 0 or y >= self.get_height()
