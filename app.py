@@ -8,7 +8,7 @@ import os
 import random
 
 from board import Board
-#from reward import calc_reward
+from reward import calc_reward
 from risk import calc_risk
 
 
@@ -121,9 +121,9 @@ def tick(client_id):
         scores[move] += score
 
     # factor in reward
-    #reward_scores = calc_reward(board)
-    #for move, score in reward_scores.iteritems():
-    #    scores[move] += score
+    reward_scores = calc_reward(board)
+    for move, score in reward_scores.iteritems():
+        scores[move] += score
 
     # Decide on a move
     next_move = None
