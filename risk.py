@@ -2,6 +2,7 @@ import math
 
 from board import Board
 
+
 def calc_risk(board, last_move):
     risk = {'n': 0,
             'e': 0,
@@ -137,12 +138,12 @@ def _proximity_risk(board, risk, our_x, our_y):
 def _calc_prox_risk(board, cur_x, cur_y, prox_risk, dir, risk_factor):
     # Calculate risk with proximity to walls
     if board.is_wall(cur_x, cur_y):
-        _max_risk(prox_risk, dir, prox_risk[dir] + ceil(risk_factor * 1))
+        _max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 1))
 
     # Calculate risk with proximity to snake bodies, including own snake body
     if board.get_state(cur_x, cur_y) == Board.STATE_BODY:
-        _max_risk(prox_risk, dir, prox_risk[dir] + ceil(risk_factor * 2))
+        _max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 2))
 
     # Calculate risk with proximity to snake heads
     if board.get_state(cur_x, cur_y) == Board.STATE_HEAD:
-        _max_risk(prox_risk, dir, prox_risk[dir] + ceil(risk_factor * 3))
+        _max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 3))
