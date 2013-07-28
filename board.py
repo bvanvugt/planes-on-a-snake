@@ -35,3 +35,7 @@ class Board():
 
     def is_snake(self, x, y):
         return (self.get_state(x, y) == self.STATE_BODY) or (self.get_state(x, y) == self.STATE_HEAD)
+
+
+    def calc_distance(self, x1, y1, x2, y2):
+        return int(math.fabs(x1 - x2)) + int(math.fabs(y1 - y2))
