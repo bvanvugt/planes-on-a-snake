@@ -8,7 +8,7 @@ import os
 import random
 
 from board import Board
-from reward import calc_reward
+#from reward import calc_reward
 from risk import calc_risk
 
 
@@ -71,17 +71,59 @@ def tick(client_id):
 
     board = Board(request.get('board'), client_id)
 
-    # Calc Risk
-    risk_scores = calc_risk(board)
-    reward_scores = calc_reward(board)
-
     # Allowed moves
+    (player_x, player_y) = board.get_head()
+    allowed_moves = ['n', 's', 'e', 'w']
 
-    # Calc Reward
-    calc_reward(board)
+    def move_allowed(board, x, y):
+        if x < 0 or x > (board.get_width() - 1):
+            return False
+        if y < 0 or y > (board.get_height() - 1):
+            return False
+
+        if board.is_snake(x, y):
+            return False
+
+        return True
+
+    # East?
+    if not move_allowed(board, (player_x - 1), player_y):
+        allowed_moves.remove('e')
+    # West?
+    if not move_allowed(board, (player_x + 1), player_y):
+        allowed_moves.remove('w')
+    # South?
+    if not move_allowed(board, player_x, (player_y + 1)):
+        allowed_moves.remove('s')
+    # North?
+    if not move_allowed(board, player_x, (player_y - 1)):
+        allowed_moves.remove('n')
+
+    print "Allowed Moves:", allowed_moves
+
+    # Calc Risk
+    scores = {'n': 0, 's': 0, 'e': 0, 'w': 0}
+
+    # factor in risk
+    risk_scores = calc_risk(board)
+    for move, score in risk_scores.iteritems():
+        scores[move] += score
+
+    # factor in reward
+    #reward_scores = calc_reward(board)
+    #for move, score in reward_scores.iteritems():
+    #    scores[move] += score
+
+    # Decide on a move
+    next_move = None
+    next_move_score = -1
+    for m in allowed_moves:
+        if scores[m] > next_move_score:
+            next_move = m
+            next_move_score = scores[m]
 
     return _respond({
-        'move': 'n',
+        'move': next_move,
         'message': 'Turn %d!' % (request.get('turn_num'))
     })
 
