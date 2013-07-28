@@ -78,7 +78,10 @@ def tick(client_id):
 
     pp = pprint.PrettyPrinter(indent=4)
 
-    board = Board(request.get('board'), client_id)
+    try:
+        board = Board(request.get('board'), client_id)
+    except:
+        return _respond({})
 
     my_snake = None
     for snake in request.get('snakes'):
