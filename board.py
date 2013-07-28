@@ -73,5 +73,5 @@ class Board():
             return 'e'
 
         if self_y > y:
-            return 's'
-        return 'n'
+            return 'n'
+        return 's'

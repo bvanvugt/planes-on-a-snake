@@ -71,11 +71,39 @@ def tick(client_id):
 
     board = Board(request.get('board'), client_id)
 
+    # Allowed moves
+    (player_x, player_y) = board.get_head()
+    allowed_moves = ['n', 's', 'e', 'w']
+
+    def move_allowed(board, x, y):
+        if x < 0 or x > (board.get_width() - 1):
+            return False
+        if y < 0 or y > (board.get_height() - 1):
+            return False
+
+        if board.is_snake(x, y):
+            return False
+
+        return True
+
+    # East?
+    if not move_allowed(board, (player_x - 1), player_y):
+        allowed_moves.remove('e')
+    # West?
+    if not move_allowed(board, (player_x + 1), player_y):
+        allowed_moves.remove('w')
+    # South?
+    if not move_allowed(board, player_x, (player_y + 1)):
+        allowed_moves.remove('s')
+    # North?
+    if not move_allowed(board, player_x, (player_y - 1)):
+        allowed_moves.remove('n')
+
+    print "Allowed Moves:", allowed_moves
+
     # Calc Risk
     risk_scores = calc_risk(board)
     reward_scores = calc_reward(board)
-
-    # Allowed moves
 
     # Calc Reward
     calc_reward(board)
