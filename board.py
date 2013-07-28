@@ -12,15 +12,11 @@ class Board():
         self.client_id = client_id
         self.player_coords = None
 
-        print "Board Init:", client_id
-
         for y in range(self.get_height()):
             for x in range(self.get_width()):
                 square = self.board_state[y][x]
                 if len(square) > 0:
                     if square[0]['type'] == 'snake_head':
-                        print "HEAD:", square[0]['id']
-
                         if square[0]['id'] == self.client_id:
                             self.player_coords = (x, y)
                             return
