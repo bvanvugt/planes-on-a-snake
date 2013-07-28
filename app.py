@@ -8,7 +8,7 @@ import os
 import random
 
 from board import Board
-from reward import calc_reward
+#from reward import calc_reward
 from risk import calc_risk
 
 
