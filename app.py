@@ -8,6 +8,8 @@ import os
 import random
 
 from board import Board
+from reward import calc_reward
+from risk import calc_risk
 
 
 def _respond(response_json):
@@ -68,8 +70,14 @@ def tick(client_id):
 
     board = Board(request.get('board'))
 
+    # Calc Risk
+    calc_risk(board)
+
+    # Calc Reward
+    calc_reward(board)
+
     return _respond({
-        'move': my_move,
+        'move': 'n',
         'message': 'Turn %d!' % (request.get('turn_num'))
     })
 
