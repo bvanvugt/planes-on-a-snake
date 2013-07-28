@@ -49,7 +49,8 @@ def calc_risk(board, last_move):
     _proximity_risk(board, risk, our_x, our_y)
     
     # Calculate risk of going in the direction of other snakes, considering snake length
-    
+    _calc_snake_risk(board, risk, our_x, our_y)
+        
     return risk
 
 # Pick the max of current risk and desired risk
