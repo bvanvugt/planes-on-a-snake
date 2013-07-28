@@ -91,4 +91,3 @@ def _proximity_risk(board, risk, our_x, our_y):
     _max_risk(risk, 's', prox_risk['s'])
     _max_risk(risk, 'w', prox_risk['w'])
     
-def _calc_prox_risk(board, ):
