@@ -1,6 +1,8 @@
 planes-on-a-snake
 =================
 
+http://etd.dtu.dk/thesis/255329/bac10_01.pdf <=== read me
+
 planes on a snake
 
 
