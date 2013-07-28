@@ -145,7 +145,7 @@ def _calc_prox_risk(board, cur_x, cur_y, prox_risk, dir, risk_factor):
     if board.get_state(cur_x, cur_y) == Board.STATE_HEAD:
         _max_risk(prox_risk, dir, prox_risk[dir] + ceil(risk_factor * 3))
 
-def _get_snake_square_count(board, cur_x, cur_y):
+def _get_snake_square_count(board, our_x, our_y):
     snake_count = {'n': (0, 0), # (heads, bodies)
                    'e': (0, 0),
                    's': (0, 0),
@@ -153,4 +153,39 @@ def _get_snake_square_count(board, cur_x, cur_y):
     
     for x in range(board.get_width()):
         for y in range(board.get_height()):
-            if board.is_snake_head
+            xd = x - our_x
+            yd = y - our_y
+            
+            if xd == 0 and yd == 0:
+                continue
+            
+            xdir = 'e'
+            if xd < 0:
+                xdir = 'w'
+            ydir = 's'
+            if xd < 0:
+                ydir = 'n'
+
+            if int(math.fabs(xd)) == int(math.fabs(yd)):
+                if board.get_state(x, y) == Board.STATE_HEAD:
+                    snake_count[xdir][0] += 0.5
+                    snake_count[ydir][0] += 0.5
+                elif board.get_state(x, y) == Board.STATE_BODY:
+                    snake_count[xdir][1] += 0.5
+                    snake_count[xdir][1] += 0.5
+            elif int(math.fabs(xd)) > int(math.fabs(yd)):
+                if board.get_state(x, y) == Board.STATE_HEAD:
+                    snake_count[xdir][0] += 1
+                elif board.get_state(x, y) == Board.STATE_BODY:
+                    snake_count[xdir][1] += 1
+            else: # north/south direction
+                if board.get_state(x, y) == Board.STATE_HEAD:
+                    snake_count[ydir][0] += 1
+                elif board.get_state(x, y) == Board.STATE_BODY:
+                    snake_count[ydir][1] += 1
+
+def _calc_snake_risk(board, risk, our_x, our_y):
+    snake_count = _get_snake_square_count(board, our_x, our_y)
+    
+    for dir in ['n', 'e', 's', 'w']:
+        _max_risk(risk, dir, risk[dir] + math.ceil(snake_count[dir][0] * 2 + snake_count[dir][1] * 1))
