@@ -17,6 +17,7 @@ what is the payoff point?
 
 which directions are safest
 
+
 DEFENSIVE ACTION
 
 how far away from x snake
@@ -24,6 +25,7 @@ how far away from x snake
 how many moves do does i need to safely take defensive action of x snake
 
 which directions are safest
+
 
 OFFENSIVE ACTION
 
