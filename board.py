@@ -47,10 +47,10 @@ class Board():
             if obj['type'] == 'head':
                 return self.STATE_HEAD
 
-        return self.STATE_EMTPY
+        return self.STATE_EMPTY
 
     def is_empty(self, x, y):
-        return self.get_state(x, y) == self.STATE_EMTPY
+        return self.get_state(x, y) == self.STATE_EMPTY
 
     def is_food(self, x, y):
         return self.get_state(x, y) == self.STATE_FOOD
