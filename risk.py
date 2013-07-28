@@ -1,4 +1,5 @@
 import math
+import pprint
 
 from board import Board
 
@@ -45,11 +46,21 @@ def calc_risk(board, last_move):
         elif last_move == 's':
             risk['n'] = 99
 
+    pp = pprint.PrettyPrinter(indent=4)
+
+    print "Easy risk calc:"
+    pp.pprint(risk)
+
     # Calculate proximity based risk
     _proximity_risk(board, risk, our_x, our_y)
     
+    print "After proximity risk calc:"
+    pp.pprint(risk)
+    
     # Calculate risk of going in the direction of other snakes, considering snake length
     _calc_snake_risk(board, risk, our_x, our_y)
+    print "After quadrant risk calc:"
+    pp.pprint(risk)
         
     return risk
 
@@ -190,4 +201,7 @@ def _calc_snake_risk(board, risk, our_x, our_y):
     snake_count = _get_snake_square_count(board, our_x, our_y)
     
     for dir in ['n', 'e', 's', 'w']:
-        _max_risk(risk, dir, risk[dir] + math.ceil(snake_count[dir][0] * 2 + snake_count[dir][1] * 1))
+        head_risk = snake_count[dir][0] * 2
+        body_risk = snake_count[dir][1] * 1
+        
+        _max_risk(risk, dir, risk[dir] + math.ceil(head_risk + body_risk))
