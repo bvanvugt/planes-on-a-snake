@@ -78,7 +78,10 @@ def tick(client_id):
 
     pp = pprint.PrettyPrinter(indent=4)
 
-    board = Board(request.get('board'), client_id)
+    try:
+        board = Board(request.get('board'), client_id)
+    except:
+        return _respond({})
 
     my_snake = None
     for snake in request.get('snakes'):
@@ -124,11 +127,12 @@ def tick(client_id):
     print "--- RISK CALC ---"
     pp.pprint(risk_scores)
     for move, score in risk_scores.iteritems():
-        scores[move] += score
+        scores[move] -= score
 
     # factor in reward
     reward_scores = calc_reward(board)
     print "--- REWARD CALC ---"
+    pp.pprint(reward_scores)
     for move, score in reward_scores.iteritems():
         scores[move] += score
 
