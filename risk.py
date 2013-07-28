@@ -45,9 +45,8 @@ def calc_risk(board, last_move):
     # Calculate proximity based risk
     _proximity_risk(board, risk, our_x, our_y)
     
-    # Calculate risk of going in the direction of clusters of snakes
-
-    # Calculate risk of going in the direction of long snakes
+    # Calculate risk of going in the direction of other snakes, considering snake length
+    
 
     return risk
 
@@ -66,7 +65,7 @@ def _proximity_risk(board, risk, our_x, our_y):
                  'e': 0,
                  's': 0,
                  'w': 0}
-    max_dist = 4
+    max_dist = 4 # max proximity risk
     for d in range(1, max_dist + 1):
         # Start east
         xd = d
@@ -144,3 +143,13 @@ def _calc_prox_risk(board, cur_x, cur_y, prox_risk, dir, risk_factor):
     # Calculate risk with proximity to snake heads
     if board.get_state(cur_x, cur_y) == STATE_HEAD:
         _max_risk(prox_risk, dir, prox_risk[dir] + ceil(risk_factor * 3))
+
+def _get_snake_square_count(board, cur_x, cur_y):
+    snake_count = {'n': (0, 0), # (heads, bodies)
+                   'e': (0, 0),
+                   's': (0, 0),
+                   'w': (0, 0)}
+    
+    for x in range(board.get_width()):
+        for y in range(board.get_height()):
+            if board.is_snake_head
