@@ -176,6 +176,8 @@ def _calc_prox_risk(board, cur_x, cur_y, prox_risk, dir, risk_factor):
         return int(risk_factor * 3)
         #_max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 3))
 
+    return 0
+
 
 def _get_snake_square_count(board, our_x, our_y):
     snake_count = {
