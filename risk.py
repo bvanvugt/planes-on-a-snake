@@ -53,15 +53,15 @@ def calc_risk(board, last_move):
 
     # Calculate proximity based risk
     _proximity_risk(board, risk, our_x, our_y)
-    
+
     print "After proximity risk calc:"
     pp.pprint(risk)
-    
+
     # Calculate risk of going in the direction of other snakes, considering snake length
     _calc_snake_risk(board, risk, our_x, our_y)
     print "After quadrant risk calc:"
     pp.pprint(risk)
-        
+
     return risk
 
 # Pick the max of current risk and desired risk
@@ -145,6 +145,7 @@ def _proximity_risk(board, risk, our_x, our_y):
     _max_risk(risk, 's', prox_risk['s'])
     _max_risk(risk, 'w', prox_risk['w'])
 
+
 def _calc_prox_risk(board, cur_x, cur_y, prox_risk, dir, risk_factor):
     # Calculate risk with proximity to walls
     if board.is_wall(cur_x, cur_y):
@@ -158,20 +159,24 @@ def _calc_prox_risk(board, cur_x, cur_y, prox_risk, dir, risk_factor):
     if board.get_state(cur_x, cur_y) == Board.STATE_HEAD:
         _max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 3))
 
+
 def _get_snake_square_count(board, our_x, our_y):
-    snake_count = {'n': (0, 0), # (heads, bodies)
-                   'e': (0, 0),
-                   's': (0, 0),
-                   'w': (0, 0)}
-    
+    snake_count = {
+        # heads, bodies
+        'n': (0, 0),
+        'e': (0, 0),
+        's': (0, 0),
+        'w': (0, 0)
+    }
+
     for x in range(board.get_width()):
         for y in range(board.get_height()):
             xd = x - our_x
             yd = y - our_y
-            
+
             if xd == 0 and yd == 0:
                 continue
-            
+
             xdir = 'e'
             if xd < 0:
                 xdir = 'w'
@@ -191,17 +196,20 @@ def _get_snake_square_count(board, our_x, our_y):
                     snake_count[xdir][0] += 1
                 elif board.get_state(x, y) == Board.STATE_BODY:
                     snake_count[xdir][1] += 1
-            else: # north/south direction
+            else:  # north/south direction
                 if board.get_state(x, y) == Board.STATE_HEAD:
                     snake_count[ydir][0] += 1
                 elif board.get_state(x, y) == Board.STATE_BODY:
                     snake_count[ydir][1] += 1
 
+    return snake_count
+
+
 def _calc_snake_risk(board, risk, our_x, our_y):
     snake_count = _get_snake_square_count(board, our_x, our_y)
-    
+
     for dir in ['n', 'e', 's', 'w']:
         head_risk = snake_count[dir][0] * 2
         body_risk = snake_count[dir][1] * 1
-        
+
         _max_risk(risk, dir, risk[dir] + math.ceil(head_risk + body_risk))
