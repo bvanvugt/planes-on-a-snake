@@ -8,6 +8,7 @@ width		= 30
 height 		= 20
 head 		= (5, 10)
 food 		= [(10, 15), (5, 11), (15, 7), (2,4)]
+enemies 	= [(3, 2), (5, 7), (17, 13), (8,12)]
 
 
 class square(object):
@@ -35,6 +36,12 @@ for x, y in food:
 	STATE[x][y].append({'type':'food', 'id':'e8514154-d957-46cf-9635-eb31be64339b'})
 
 
+for x, y in enemies:
+	STATE[x][y].append({'type':'snake', 'id':'e8514154-d957-46cf-9635-eb31be64339b'})
+
+
 game = board.Board(STATE, '38024038-57cd-4e15-a1d9-663b5f3e85bf')
 
-print reward.calc_reward(game)
+print STATE
+print reward.calc_risks(game, food=True)
+print reward.calc_risks(game, food=False)

@@ -58,7 +58,12 @@ def calc_reward(board):
 def calc_risks(board, food=True):
 
 	items 		= []
+	distances 	= {}
 	risk 		= {	'n': 	0,
+					'e': 	0,
+					'w': 	0,
+					's': 	0}
+	regions 	= {	'n': 	0,
 					'e': 	0,
 					'w': 	0,
 					's': 	0}
