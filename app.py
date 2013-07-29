@@ -112,10 +112,10 @@ def tick(client_id):
 
     # East?
     if not move_allowed(board, (player_x - 1), player_y):
-        allowed_moves.remove('e')
+        allowed_moves.remove('w')
     # West?
     if not move_allowed(board, (player_x + 1), player_y):
-        allowed_moves.remove('w')
+        allowed_moves.remove('e')
     # South?
     if not move_allowed(board, player_x, (player_y + 1)):
         allowed_moves.remove('s')
