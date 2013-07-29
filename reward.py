@@ -49,6 +49,6 @@ def calc_reward(board):
 
 		#EXTERNAL WEIGHTING IS SIMPLIFIED FOR NOW
 		for index, direction in enumerate(regions_ordered, start=1):
-			reward[direction] = index*25
+			reward[direction] = index*13
 
 	return reward
