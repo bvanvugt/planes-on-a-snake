@@ -74,14 +74,16 @@ def calc_risk(board, last_move):
 
     return risk
 
+
 # Pick the max of current risk and desired risk
 def _max_risk(risk, direction, desired_risk):
-    max_risk = 98 # stay under suicide risk
+    max_risk = 98  # stay under suicide risk
     if risk[direction] < desired_risk:
         if desired_risk > max_risk:
             risk[direction] = 98
         else:
             risk[direction] = desired_risk
+
 
 # Calculate proxomity risk
 def _proximity_risk(board, risk, our_x, our_y):
@@ -89,7 +91,7 @@ def _proximity_risk(board, risk, our_x, our_y):
                  'e': 0,
                  's': 0,
                  'w': 0}
-    max_dist = 4 # max proximity risk
+    max_dist = 4  # max proximity risk
     for d in range(1, max_dist + 1):
         # Start east
         xd = d
@@ -104,12 +106,12 @@ def _proximity_risk(board, risk, our_x, our_y):
             yd += 1
 
             if abs(xd) > abs(yd):
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'e', risk_factor)
+                prox_risk['e'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'e', risk_factor)
             elif abs(xd) < abs(yd):
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 's', risk_factor)
+                prox_risk['s'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 's', risk_factor)
             elif abs(xd) == abs(yd):
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'e', risk_factor / 2.0)
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 's', risk_factor / 2.0)
+                prox_risk['e'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'e', risk_factor / 2.0)
+                prox_risk['s'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 's', risk_factor / 2.0)
 
         # Circle west
         for i in range(d):
@@ -117,12 +119,12 @@ def _proximity_risk(board, risk, our_x, our_y):
             yd -= 1
 
             if abs(xd) > abs(yd):
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'w', risk_factor)
+                prox_risk['w'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'w', risk_factor)
             elif abs(xd) < abs(yd):
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 's', risk_factor)
+                prox_risk['s'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 's', risk_factor)
             elif abs(xd) == abs(yd):
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'w', risk_factor / 2.0)
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 's', risk_factor / 2.0)
+                prox_risk['w'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'w', risk_factor / 2.0)
+                prox_risk['s'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 's', risk_factor / 2.0)
 
         # Circle north
         for i in range(d):
@@ -130,12 +132,12 @@ def _proximity_risk(board, risk, our_x, our_y):
             yd -= 1
 
             if abs(xd) > abs(yd):
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'w', risk_factor)
+                prox_risk['w'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'w', risk_factor)
             elif abs(xd) < abs(yd):
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'n', risk_factor)
+                prox_risk['n'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'n', risk_factor)
             elif abs(xd) == abs(yd):
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'w', risk_factor / 2.0)
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'n', risk_factor / 2.0)
+                prox_risk['w'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'w', risk_factor / 2.0)
+                prox_risk['n'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'n', risk_factor / 2.0)
 
         # Circle east
         for i in range(d):
@@ -143,17 +145,17 @@ def _proximity_risk(board, risk, our_x, our_y):
             yd += 1
 
             if abs(xd) > abs(yd):
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'e', risk_factor)
+                prox_risk['e'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'e', risk_factor)
             elif abs(xd) < abs(yd):
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'n', risk_factor)
+                prox_risk['n'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'n', risk_factor)
             elif abs(xd) == abs(yd):
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'e', risk_factor / 2.0)
-                _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'n', risk_factor / 2.0)
+                prox_risk['e'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'e', risk_factor / 2.0)
+                prox_risk['n'] += _calc_prox_risk(board, cur_x, cur_y, prox_risk, 'n', risk_factor / 2.0)
 
-    _max_risk(risk, 'n', prox_risk['n'])
-    _max_risk(risk, 'e', prox_risk['e'])
-    _max_risk(risk, 's', prox_risk['s'])
-    _max_risk(risk, 'w', prox_risk['w'])
+    #_max_risk(risk, 'n', prox_risk['n'])
+    #_max_risk(risk, 'e', prox_risk['e'])
+    #_max_risk(risk, 's', prox_risk['s'])
+    #_max_risk(risk, 'w', prox_risk['w'])
 
     return prox_risk
 
@@ -161,15 +163,18 @@ def _proximity_risk(board, risk, our_x, our_y):
 def _calc_prox_risk(board, cur_x, cur_y, prox_risk, dir, risk_factor):
     # Calculate risk with proximity to walls
     if board.is_wall(cur_x, cur_y):
-        _max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 1))
+        return int(risk_factor * 1)
+        #_max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 1))
 
     # Calculate risk with proximity to snake bodies, including own snake body
     elif board.get_state(cur_x, cur_y) == Board.STATE_BODY:
-        _max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 2))
+        return int(risk_factor * 2)
+        #_max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 2))
 
     # Calculate risk with proximity to snake heads
     elif board.get_state(cur_x, cur_y) == Board.STATE_HEAD:
-        _max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 3))
+        return int(risk_factor * 3)
+        #_max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 3))
 
 
 def _get_snake_square_count(board, our_x, our_y):
@@ -226,7 +231,7 @@ def _calc_snake_risk(board, risk, our_x, our_y):
         head_risk = snake_count[m][0] * 2
         body_risk = snake_count[m][1] * 1
 
-        _max_risk(risk, m, risk[m] + math.ceil(head_risk + body_risk))
+        #_max_risk(risk, m, risk[m] + math.ceil(head_risk + body_risk))
 
         risk[m] = int(math.ceil(head_risk + body_risk))
 
