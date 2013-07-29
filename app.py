@@ -51,8 +51,8 @@ def register():
 
     return _respond({
         'name': 'PlanesOnA Snake',
-        'head_img_url': "http://bloatedcorpse.com/snakewithus/head-burger.gif" % gif,
-        'tail_img_url': "http://bloatedcorpse.com/snakewithus/tail-burger.gif" % gif
+        'head_img_url': "http://bloatedcorpse.com/snakewithus/head-burger.gif",
+        'tail_img_url': "http://bloatedcorpse.com/snakewithus/tail-burger.gif"
     })
 
 
