@@ -64,10 +64,30 @@ class Board():
     def is_snake(self, x, y):
         if self.is_wall(x, y):
             return False
-        return (self.get_state(x, y) == self.STATE_BODY) or (self.get_state(x, y) == self.STATE_HEAD)
+        return (self.is_body(x, y)) or (self.is_head(x, y))
+
+    def is_head(self, x, y):
+         if self.is_wall(x, y):
+            return False
+        return (self.get_state(x, y) == self.STATE_HEAD)
+
+    def is_body(self, x, y):
+         if self.is_wall(x, y):
+            return False
+        return (self.get_state(x, y) == self.STATE_BODY)
 
     def is_wall(self, x, y):
         return x < 0 or x >= self.get_width() or y < 0 or y >= self.get_height()
+
+    def allowed_moves(self):
+
+        moves = ['n', 'e', 'w', 's']
+
+        for item in self.items_in_range(self.player_coords[0], self.player_coords[1], search=1):
+            if not self.is_food(item[0], item[1]):
+                moves.remove(self.get_direction_to_point(item[0], item[1]))
+
+        return moves
 
     def items_in_range(self, px, py, search=5):
 
