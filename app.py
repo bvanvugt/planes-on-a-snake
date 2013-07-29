@@ -141,7 +141,7 @@ def tick(client_id):
 
     # Decide on a move
     next_move = None
-    next_move_score = -1
+    next_move_score = -9999999999
     for m in allowed_moves:
         if scores[m] > next_move_score:
             next_move = m
