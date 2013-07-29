@@ -158,7 +158,7 @@ def tick(client_id):
 
     return _respond({
         'move': next_move,
-        'message': 'Turn %d!' % (request.get('turn_num'))
+        'message': 'shuddup matt'
     })
 
 

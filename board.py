@@ -44,9 +44,9 @@ class Board():
             obj = square[0]
             if obj['type'] == 'food':
                 return self.STATE_FOOD
-            if obj['type'] == 'body':
+            if obj['type'] == 'snake':
                 return self.STATE_BODY
-            if obj['type'] == 'head':
+            if obj['type'] == 'snake_head':
                 return self.STATE_HEAD
 
         return self.STATE_EMPTY
