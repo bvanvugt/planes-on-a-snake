@@ -155,6 +155,8 @@ def _proximity_risk(board, risk, our_x, our_y):
     _max_risk(risk, 's', prox_risk['s'])
     _max_risk(risk, 'w', prox_risk['w'])
 
+    return prox_risk
+
 
 def _calc_prox_risk(board, cur_x, cur_y, prox_risk, dir, risk_factor):
     # Calculate risk with proximity to walls
@@ -218,8 +220,14 @@ def _get_snake_square_count(board, our_x, our_y):
 def _calc_snake_risk(board, risk, our_x, our_y):
     snake_count = _get_snake_square_count(board, our_x, our_y)
 
-    for dir in ['n', 'e', 's', 'w']:
-        head_risk = snake_count[dir][0] * 2
-        body_risk = snake_count[dir][1] * 1
+    risk = {}
 
-        _max_risk(risk, dir, risk[dir] + math.ceil(head_risk + body_risk))
+    for m in ['n', 'e', 's', 'w']:
+        head_risk = snake_count[m][0] * 2
+        body_risk = snake_count[m][1] * 1
+
+        _max_risk(risk, m, risk[m] + math.ceil(head_risk + body_risk))
+
+        risk[m] = int(math.ceil(head_risk + body_risk))
+
+    return risk
