@@ -182,10 +182,10 @@ def _calc_prox_risk(board, cur_x, cur_y, prox_risk, dir, risk_factor):
 def _get_snake_square_count(board, our_x, our_y):
     snake_count = {
         # heads, bodies
-        'n': (0, 0),
-        'e': (0, 0),
-        's': (0, 0),
-        'w': (0, 0)
+        'n': [0, 0],
+        'e': [0, 0],
+        's': [0, 0],
+        'w': [0, 0]
     }
 
     for x in range(board.get_width()):
