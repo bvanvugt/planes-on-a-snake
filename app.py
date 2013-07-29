@@ -130,7 +130,7 @@ def tick(client_id):
 
     # factor in risk
     #risk_scores = calc_risk(board, last_move)
-    risk_scores = calc_risks(board)
+    risk_scores = calc_risks(board, food=False)
     print "--- RISK CALC ---"
     pp.pprint(risk_scores)
     for move, score in risk_scores.iteritems():
