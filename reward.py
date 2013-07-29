@@ -55,9 +55,8 @@ def calc_reward(board):
 	return reward
 
 
-def calc_risks(board, item='food'):
+def calc_risks(board, food=True):
 
-	types 		= ['food', 'snake']
 	items 		= []
 	risk 		= {	'n': 	0,
 					'e': 	0,
@@ -67,13 +66,13 @@ def calc_risks(board, item='food'):
 
 	for x in range(board.get_width()):
 		for y in range(board.get_height()):
-			if item == 'food' and board.is_food(x,y):
+			if food and board.is_food(x,y):
 				items.append((x,y))
-			elif item == 'snake' and board.is_snake(x,y):
+			elif not food and (board.is_snake(x,y) or board.is_wall(x,y)):
 				items.append((x,y))
 
 
-	print '%d %s(s): %s' % (len(items), item, items)
+	print '%d %s(s): %s' % (len(items), {True:'Food'}.get(food, 'Enemy'), items)
 
 	if items:
 
