@@ -42,7 +42,7 @@ def calc_reward(board):
 		# HEAVY WEIGHTING INDEX ADDED TO DIRECTION
 		for index, point in enumerate(distances_orderd, start=1):
 			# JUST ADD IN THE TOP HALF
-			if index >= distances_orderd/2:
+			if index >= len(distances_orderd)/2:
 				regions[board.get_direction_to_point(point[0], point[1])] += index
 
 		#ORDER BY WEIGHT
@@ -101,7 +101,7 @@ def calc_risks(board, food=True):
 
 		# HEAVY WEIGHTING INDEX ADDED TO DIRECTION
 		for index, point in enumerate(distances_orderd, start=1):
-			if index >= distances_orderd/2:
+			if index >= len(distances_orderd)/2:
 				regions[board.get_direction_to_point(point[0], point[1])] += index
 
 		#ORDER BY WEIGHT
