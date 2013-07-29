@@ -43,7 +43,7 @@ def calc_reward(board):
 		for index, point in enumerate(distances_orderd, start=1):
 			# JUST ADD IN THE TOP HALF
 			if index >= len(distances_orderd)/2:
-				regions[board.get_direction_to_point(point[0], point[1])] += index
+				regions[board.get_direction_to_point(point[0], point[1])] += index*2
 
 		#ORDER BY WEIGHT
 		regions_ordered = list(sorted(regions, key=regions.__getitem__))
@@ -76,6 +76,7 @@ def calc_risks(board, food=True):
 			if food and board.is_food(x,y):
 				items.append((x,y))
 			elif not food:
+				# JUST CONSIDER CLOSER EMEMIES
 				if board.get_distance_to_point(x,y) <= 6:
 					if (board.is_snake(x,y) or board.is_wall(x,y)):
 						items.append((x,y))
@@ -102,7 +103,7 @@ def calc_risks(board, food=True):
 		# HEAVY WEIGHTING INDEX ADDED TO DIRECTION
 		for index, point in enumerate(distances_orderd, start=1):
 			if index >= len(distances_orderd)/2:
-				regions[board.get_direction_to_point(point[0], point[1])] += index
+				regions[board.get_direction_to_point(point[0], point[1])] += index*2
 
 		#ORDER BY WEIGHT
 		regions_ordered = list(sorted(regions, key=regions.__getitem__))
