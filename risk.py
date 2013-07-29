@@ -152,11 +152,11 @@ def _calc_prox_risk(board, cur_x, cur_y, prox_risk, dir, risk_factor):
         _max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 1))
 
     # Calculate risk with proximity to snake bodies, including own snake body
-    if board.get_state(cur_x, cur_y) == Board.STATE_BODY:
+    elif board.get_state(cur_x, cur_y) == Board.STATE_BODY:
         _max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 2))
 
     # Calculate risk with proximity to snake heads
-    if board.get_state(cur_x, cur_y) == Board.STATE_HEAD:
+    elif board.get_state(cur_x, cur_y) == Board.STATE_HEAD:
         _max_risk(prox_risk, dir, prox_risk[dir] + math.ceil(risk_factor * 3))
 
 
