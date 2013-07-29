@@ -38,7 +38,12 @@ def register():
     print "----------------"
 
     snake_gifs = [
-        'skull', 'bug', 'drill', 'pacman', 'worm', 'goon'
+        'skull',
+        #'bug',
+        'drill',
+        'pacman',
+        'worm',
+        #'goon'
     ]
     gif = random.choice(snake_gifs)
 
