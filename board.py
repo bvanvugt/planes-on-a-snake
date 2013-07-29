@@ -69,6 +69,20 @@ class Board():
     def is_wall(self, x, y):
         return x < 0 or x >= self.get_width() or y < 0 or y >= self.get_height()
 
+    def items_in_range(self, px, py, search=5):
+
+        items = {}
+
+        for y in range(self.get_height()):
+            for x in range(self.get_width()):
+                if self.calc_distance(px, py, x, y) <= search and self.is_empty(x,y):
+                    items[(x,y)] = self.calc_distance(px, py, x, y)
+
+        if items:
+            return list(sorted(items, key=items.__getitem__))
+
+        return []
+
     def calc_distance(self, x1, y1, x2, y2):
         return int(math.fabs(x1 - x2)) + int(math.fabs(y1 - y2))
 
