@@ -62,6 +62,9 @@ def calc_risk(board, last_move):
     print "After quadrant risk calc:"
     pp.pprint(risk)
 
+    for m in ['n', 's', 'e', 'w']:
+        risk[m] = int(risk[m])
+
     return risk
 
 # Pick the max of current risk and desired risk

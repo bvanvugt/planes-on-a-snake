@@ -43,6 +43,7 @@ def register():
         'drill',
         'pacman',
         'worm',
+        'burger'
         #'goon'
     ]
     gif = random.choice(snake_gifs)
@@ -146,9 +147,10 @@ def tick(client_id):
 
     # Decide on a move
     next_move = None
-    next_move_score = -9999999999
+    next_move_score = -99999999
     for m in allowed_moves:
         if scores[m] > next_move_score:
+            print "Move:", m
             next_move = m
             next_move_score = scores[m]
 
