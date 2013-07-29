@@ -235,6 +235,6 @@ def _calc_snake_risk(board, risk, our_x, our_y):
 
         #_max_risk(risk, m, risk[m] + math.ceil(head_risk + body_risk))
 
-        risk[m] = int(math.ceil(head_risk + body_risk))
+        risk[m] = int(head_risk + body_risk)
 
     return risk
